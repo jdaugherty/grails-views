@@ -12,47 +12,48 @@ dependencies {
 
     api project(':views-json')
 
-    // Should this be api, implementation, compileOnly or provided?
-    // The templates expect classes from this library as models
-    // but I'm not sure in what context these templates are used
-    // They were previously compileOnly
-    implementation libs.grails.datastore.gorm.mongodb
+    // The templates in this project use classes from these dependencies so they should be in the implementation configuration.
+    //
+    // But, setting them as implementation will make grails apps using this project try to autoconfigure MongoDB beans,
+    // even without the real MongoDB dependencies on the classpath, which fails with ClassNotFoundExeption.
+    //
+    // Therefore, because this project is only supposed to work with MongoDB, setting them as compileOnly/provided is
+    // probably best, as it will not break apps that erroneously include this project as a dependency but don't use MongoDB.
+    compileOnly libs.grails.datastore.gorm.mongodb // provided
+    compileOnly libs.mongodb.bson // provided
 
     compileOnly libs.slf4j.nop // Get rid of warning about missing slf4j implementation during compileGsonViews task
 }
 
-def sourceDir = layout.projectDirectory.dir('src/templates')
-def outputDir = layout.buildDirectory.dir('classes/groovy/main')
+def templateSourceDir = layout.projectDirectory.dir('src/templates')
+def compilationOutputDir = layout.buildDirectory.dir('classes/groovy/main')
 sourceSets {
     main {
         groovy {
-            srcDirs = [sourceDir]
+            // Add templates as source dir
+            srcDirs = [templateSourceDir]
         }
     }
 }
 
 tasks.register('compileViews', JavaExec) {
-    inputs.dir sourceDir
-    outputs.dir outputDir
+    inputs.dir templateSourceDir
+    outputs.dir compilationOutputDir
     mainClass = 'grails.plugin.json.view.JsonViewCompiler'
-    classpath configurations.compileClasspath + configurations.runtimeClasspath
-    args(sourceDir.asFile, outputDir.get().asFile, libs.versions.java.baseline.get(), ' ', ' ', 'none', 'UTF-8')
+    classpath configurations.compileClasspath
+    args(templateSourceDir.asFile, compilationOutputDir.get().asFile, libs.versions.java.baseline.get(), ' ', ' ', 'none', 'UTF-8')
 }
 
+// This is needed to trigger compilation of the views
 tasks.named('classes') {
     dependsOn 'compileViews'
 }
 
-java {
-    sourceCompatibility = JavaVersion.toVersion(libs.versions.java.baseline.get())
-    withSourcesJar()
-    withJavadocJar()
-}
+apply from: rootProject.layout.projectDirectory.file('gradle/java-config.gradle')
+apply from: rootProject.layout.projectDirectory.file('gradle/publishing.gradle')
 
 // There are no javadocs for this project.
 // This is a workaround as a javadoc jar is required for publishing.
 tasks.named('javadocJar', Jar) {
     from 'src/templates'
 }
-
-apply from: rootProject.layout.projectDirectory.file('gradle/grailsCentralPublishing.gradle')
