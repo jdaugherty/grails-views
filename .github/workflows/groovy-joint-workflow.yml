@@ -141,6 +141,5 @@ jobs:
         run: >
           ./gradlew
           build
-          -Dgeb.env=chromeHeadless
           -PgroovyVersion=${{needs.build_groovy.outputs.groovyVersion}}
           -x groovydoc

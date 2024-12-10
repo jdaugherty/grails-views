@@ -24,6 +24,7 @@ dependencies {
 
     testImplementation libs.grails.web.urlmappings
     testImplementation libs.spock.core
+    testImplementation libs.jakarta.servlet.api
     testRuntimeOnly libs.slf4j.nop // Get rid of warning about missing slf4j implementation during test task
 }
 
