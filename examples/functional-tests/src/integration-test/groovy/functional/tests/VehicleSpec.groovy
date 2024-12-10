@@ -17,7 +17,6 @@ class VehicleSpec extends HttpClientSpec {
         super.init()
     }
 
-    @PendingFeature(reason = 'GORM inheritance not working in Groovy 4')
     void "Test that domain subclasses render their properties"() {
         when:
         HttpRequest request = HttpRequest.GET('/vehicle/list')
@@ -25,11 +24,10 @@ class VehicleSpec extends HttpClientSpec {
 
         then:"The correct response is returned"
         resp.status == HttpStatus.OK
-        resp.body() == '[{"id":1,"route":"around town","maxPassengers":30},{"id":2,"make":"Subaru","year":2016,"model":"WRX","maxPassengers":4}]'
+        resp.body() == '[{"id":1,"route":"around town","maxPassengers":30},{"id":2,"make":"Subaru","model":"WRX","year":2016,"maxPassengers":4}]'
 
     }
 
-    @PendingFeature(reason = 'GORM inheritance not working in Groovy 4')
     void "Test that domain association subclasses render their properties"() {
         when:
         HttpRequest request = HttpRequest.GET('/vehicle/garage')

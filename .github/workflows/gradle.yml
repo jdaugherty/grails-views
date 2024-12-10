@@ -31,7 +31,6 @@ jobs:
           DEVELOCITY_BUILD_CACHE_NODE_KEY: ${{ secrets.GRADLE_ENTERPRISE_BUILD_CACHE_NODE_KEY }}
         run: >
           ./gradlew
-          -Dgeb.env=chromeHeadless
           check
   build_project:
     runs-on: ubuntu-latest
@@ -54,7 +53,6 @@ jobs:
           DEVELOCITY_BUILD_CACHE_NODE_KEY: ${{ secrets.GRADLE_ENTERPRISE_BUILD_CACHE_NODE_KEY }}
         run: >
           ./gradlew
-          -Dgeb.env=chromeHeadless
           build
       - name: "📤 Publish Snapshot Artifacts to Artifactory (repo.grails.org)"
         if: success()

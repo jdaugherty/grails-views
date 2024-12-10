@@ -10,7 +10,7 @@ import grails.views.resolve.PluginAwareTemplateResolver
 class JsonViewGrailsPlugin extends Plugin {
 
     // the version or versions of Grails the plugin is designed for
-    def grailsVersion = "6.0.0 > *"
+    def grailsVersion = "7.0.0 > *"
 
     def title = "JSON Views" // Headline display name of the plugin
     def author = "Graeme Rocher"
