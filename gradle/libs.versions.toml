@@ -1,57 +1,44 @@
 [versions]
-assetpipeline = '5.0.1'
-caffeine = '2.9.3'
-gorm = '9.0.0-SNAPSHOT'
-gorm-hibernate5 = '9.0.0-SNAPSHOT'
-gorm-mongodb = '9.0.0-SNAPSHOT'
 grails = '7.0.0-SNAPSHOT'
 grails-gradle-plugin = '7.0.0-SNAPSHOT'
-grails-testing-support = '4.0.0-SNAPSHOT'
 groovy = '4.0.24'
 java-baseline = '17'
-jackson-databind = '2.18.0'
-jakarta-annotation-api = '3.0.0'
-jakarta-servlet-api = '6.0.0'
-jakarta-validation-api = '3.0.2'
 micronaut = '4.6.5'
-mongodb = '4.11.2'
-slf4j = '2.0.16'
-spock = '2.3-groovy-4.0'
-spring = '6.1.13'
-spring-boot = '3.3.4'
+spring-boot-gradle-plugin = '3.4.1'
 
 [libraries]
-assetpipeline = { module = 'com.bertramlabs.plugins:asset-pipeline-grails', version.ref = 'assetpipeline' }
-caffeine = { module = 'com.github.ben-manes.caffeine:caffeine', version.ref = 'caffeine' }
+assetpipeline = { module = 'com.bertramlabs.plugins:asset-pipeline-grails' }
+caffeine = { module = 'com.github.ben-manes.caffeine:caffeine' }
+grails-bom = { module = 'org.grails:grails-bom', version.ref = 'grails' }
 grails-bootstrap = { module = 'org.grails:grails-bootstrap', version.ref = 'grails' }
 grails-core = { module = 'org.grails:grails-core', version.ref = 'grails' }
-grails-datastore-core = { module = 'org.grails:grails-datastore-core', version.ref = 'gorm' }
-grails-datastore-gorm-hibernate5 = { module = 'org.grails:grails-datastore-gorm-hibernate5', version.ref = 'gorm-hibernate5' }
-grails-datastore-gorm-mongodb = { module = 'org.grails:grails-datastore-gorm-mongodb', version.ref = 'gorm-mongodb' }
-grails-datastore-gorm-support = { module = 'org.grails:grails-datastore-gorm-support', version.ref = 'gorm' }
+grails-datastore-core = { module = 'org.grails:grails-datastore-core' }
+grails-datastore-gorm-hibernate5 = { module = 'org.grails:grails-datastore-gorm-hibernate5' }
+grails-datastore-gorm-mongodb = { module = 'org.grails:grails-datastore-gorm-mongodb' }
+grails-datastore-gorm-support = { module = 'org.grails:grails-datastore-gorm-support' }
 grails-encoder = { module = 'org.grails:grails-encoder', version.ref = 'grails' }
 grails-gradle-plugin = { module = 'org.grails:grails-gradle-plugin', version.ref = 'grails-gradle-plugin' }
 grails-mimetypes = { module = 'org.grails:grails-plugin-mimetypes', version.ref = 'grails' }
 grails-rest = { module = 'org.grails:grails-plugin-rest', version.ref = 'grails' }
-grails-testing-support-core = { module = 'org.grails:grails-testing-support', version.ref = 'grails-testing-support' }
-grails-testing-support-gorm = { module = 'org.grails:grails-gorm-testing-support', version.ref = 'grails-testing-support' }
+grails-testing-support-core = { module = 'org.grails:grails-testing-support' }
+grails-testing-support-gorm = { module = 'org.grails:grails-gorm-testing-support' }
 grails-web-urlmappings = { module = 'org.grails:grails-web-url-mappings', version.ref = 'grails' }
-groovy-core = { module = 'org.apache.groovy:groovy', version.ref = 'groovy' }
-groovy-json = { module = 'org.apache.groovy:groovy-json', version.ref = 'groovy' }
-groovy-templates = { module = 'org.apache.groovy:groovy-templates', version.ref = 'groovy' }
-jackson-databind = { module = 'com.fasterxml.jackson.core:jackson-databind', version.ref = 'jackson-databind' }
-jakarta-annotation-api = { module = 'jakarta.annotation:jakarta.annotation-api', version.ref = 'jakarta-annotation-api' }
-jakarta-servlet-api = { module = 'jakarta.servlet:jakarta.servlet-api', version.ref = 'jakarta-servlet-api' }
-jakarta-validation-api = { module = 'jakarta.validation:jakarta.validation-api', version.ref = 'jakarta-validation-api' }
+groovy-core = { module = 'org.apache.groovy:groovy' }
+groovy-json = { module = 'org.apache.groovy:groovy-json' }
+groovy-templates = { module = 'org.apache.groovy:groovy-templates' }
+jackson-databind = { module = 'com.fasterxml.jackson.core:jackson-databind' }
+jakarta-annotation-api = { module = 'jakarta.annotation:jakarta.annotation-api' }
+jakarta-servlet-api = { module = 'jakarta.servlet:jakarta.servlet-api' }
+jakarta-validation-api = { module = 'jakarta.validation:jakarta.validation-api' }
 micronaut-jackson-databind = { module = 'io.micronaut:micronaut-jackson-databind', version.ref = 'micronaut' }
 micronaut-http-client = { module = 'io.micronaut:micronaut-http-client', version.ref = 'micronaut' }
-mongodb-bson = { module = 'org.mongodb:bson', version.ref = 'mongodb' }
-slf4j-api = { module = 'org.slf4j:slf4j-api', version.ref = 'slf4j' }
-slf4j-nop = { module = 'org.slf4j:slf4j-nop', version.ref = 'slf4j' }
-spock-core = { module = 'org.spockframework:spock-core', version.ref = 'spock' }
-spring-beans = { module = 'org.springframework:spring-beans', version.ref = 'spring' }
-spring-context = { module = 'org.springframework:spring-context', version.ref = 'spring' }
-spring-web = { module = 'org.springframework:spring-web', version.ref = 'spring' }
-spring-webmvc = { module = 'org.springframework:spring-webmvc', version.ref = 'spring' }
-spring-boot = { module = 'org.springframework.boot:spring-boot', version.ref = 'spring-boot' }
-spring-boot-gradle-plugin = { module = 'org.springframework.boot:spring-boot-gradle-plugin', version.ref = 'spring-boot' }
+mongodb-bson = { module = 'org.mongodb:bson' }
+slf4j-api = { module = 'org.slf4j:slf4j-api' }
+slf4j-nop = { module = 'org.slf4j:slf4j-nop' }
+spock-core = { module = 'org.spockframework:spock-core' }
+spring-beans = { module = 'org.springframework:spring-beans' }
+spring-context = { module = 'org.springframework:spring-context' }
+spring-web = { module = 'org.springframework:spring-web' }
+spring-webmvc = { module = 'org.springframework:spring-webmvc' }
+spring-boot = { module = 'org.springframework.boot:spring-boot' }
+spring-boot-gradle-plugin = { module = 'org.springframework.boot:spring-boot-gradle-plugin', version.ref = 'spring-boot-gradle-plugin' }
