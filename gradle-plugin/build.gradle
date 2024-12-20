@@ -12,6 +12,7 @@ dependencies {
 
     // the gradle api is provided by java-gradle-plugin
 
+    implementation platform(libs.grails.bom)
     implementation libs.grails.bootstrap, {
         // grails-bootstrap leaks groovy-xml which is a problem for Gradle (version conflict)
         exclude group: 'org.codehaus.groovy', module: 'groovy-xml'
