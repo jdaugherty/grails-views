@@ -5,6 +5,24 @@ plugins {
 repositories {
     mavenCentral()
     maven { url = 'https://repo.grails.org/grails/core' }
+
+    def gradleGrailsVersion = project.rootProject
+            .extensions
+            .getByType(VersionCatalogsExtension.class)
+            .named("buildsrcLibs")
+            .findVersion("grails-gradle-plugin")
+            .get()
+            .displayName
+    if (System.getenv("GITHUB_MAVEN_PASSWORD") && !gradleGrailsVersion.endsWith('-SNAPSHOT')) {
+        System.out.println("Adding Grails Core Repo")
+        maven {
+            url = 'https://maven.pkg.github.com/grails/grails-core'
+            credentials {
+                username = 'DOES_NOT_MATTER'
+                password = System.getenv("GITHUB_MAVEN_PASSWORD")
+            }
+        }
+    }
 }
 
 dependencies {

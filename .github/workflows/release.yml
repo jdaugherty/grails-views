@@ -17,7 +17,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           java-version: 17
-          distribution: temurin
+          distribution: liberica
       - name: "🐘 Setup Gradle"
         uses: gradle/actions/setup-gradle@v4
         with:
@@ -26,13 +26,14 @@ jobs:
         id: release_version
         run: echo "value=${GITHUB_REF:11}" >> $GITHUB_OUTPUT
       - name: "⚙ Run pre-release"
-        uses: micronaut-projects/github-actions/pre-release@master
+        uses: grails/github-actions/pre-release@main
       - name: "🧩 Run Assemble"
         if: success()
         id: assemble
         env:
           DEVELOCITY_BUILD_CACHE_NODE_USER: ${{ secrets.GRADLE_ENTERPRISE_BUILD_CACHE_NODE_USER }}
           DEVELOCITY_BUILD_CACHE_NODE_KEY: ${{ secrets.GRADLE_ENTERPRISE_BUILD_CACHE_NODE_KEY }}
+          GITHUB_MAVEN_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
         run: ./gradlew assemble
       - name: "📤 Upload Distribution"
         if: success()
@@ -54,6 +55,7 @@ jobs:
           ORG_GRADLE_PROJECT_sonatypeOssRepo: ${{ secrets.SONATYPE_NEXUS_URL }}
           SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
           SIGNING_PASSPHRASE: ${{ secrets.SIGNING_PASSPHRASE }}
+          GITHUB_MAVEN_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
         run: >
           ./gradlew
           -Psigning.secretKeyRingFile=${{ github.workspace }}/secring.gpg 
@@ -74,7 +76,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           java-version: 17
-          distribution: temurin
+          distribution: liberica
       - name: "🐘 Setup Gradle"
         uses: gradle/actions/setup-gradle@v4
         with:
@@ -87,13 +89,14 @@ jobs:
           ORG_GRADLE_PROJECT_sonatypeOssPassword: ${{ secrets.SONATYPE_PASSWORD }}
           ORG_GRADLE_PROJECT_sonatypeOssStagingProfileId: ${{ secrets.SONATYPE_STAGING_PROFILE_ID }}
           ORG_GRADLE_PROJECT_sonatypeOssRepo: ${{ secrets.SONATYPE_NEXUS_URL }}
+          GITHUB_MAVEN_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
         run: >
           ./gradlew
           findSonatypeStagingRepository
           releaseSonatypeStagingRepository
       - name: "⚙️ Run post-release"
         if: success()
-        uses: micronaut-projects/github-actions/post-release@master
+        uses: grails/github-actions/post-release@main
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
   docs:
@@ -111,7 +114,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           java-version: 17
-          distribution: temurin
+          distribution: liberica
       - name: "🐘 Setup Gradle"
         uses: gradle/actions/setup-gradle@v4
         with:
@@ -121,12 +124,13 @@ jobs:
         env:
           DEVELOCITY_BUILD_CACHE_NODE_USER: ${{ secrets.GRADLE_ENTERPRISE_BUILD_CACHE_NODE_USER }}
           DEVELOCITY_BUILD_CACHE_NODE_KEY: ${{ secrets.GRADLE_ENTERPRISE_BUILD_CACHE_NODE_KEY }}
+          GITHUB_MAVEN_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
         run: >
           ./gradlew
           views-docs:docs
       - name: "📤 Publish Documentation to Github Pages"
         if: success()
-        uses: micronaut-projects/github-pages-deploy-action@grails
+        uses: grails/github-pages-deploy-action@grails
         env:
           BETA: ${{ contains(needs.publish.outputs.release_version, 'M') }}
           BRANCH: gh-pages
