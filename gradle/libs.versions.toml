@@ -9,6 +9,7 @@ spring-boot-gradle-plugin = '3.4.1'
 [libraries]
 assetpipeline = { module = 'com.bertramlabs.plugins:asset-pipeline-grails' }
 caffeine = { module = 'com.github.ben-manes.caffeine:caffeine' }
+grails-bom = { module = 'org.grails:grails-bom', version.ref = 'grails' }
 grails-bootstrap = { module = 'org.grails:grails-bootstrap', version.ref = 'grails' }
 grails-core = { module = 'org.grails:grails-core', version.ref = 'grails' }
 grails-datastore-core = { module = 'org.grails:grails-datastore-core' }

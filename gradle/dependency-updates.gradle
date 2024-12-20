@@ -6,16 +6,6 @@ def groovyVersion = project.rootProject
         .get()
         .displayName
 
-
-def grailsVersion = project.rootProject
-        .extensions
-        .getByType(VersionCatalogsExtension.class)
-        .named("libs")
-        .findVersion("grails")
-        .get()
-        .displayName
-
-
 dependencies {
-    implementation platform("org.grails:grails-bom:$grailsVersion")
+    implementation(platform(libs.grails.bom))
 }
