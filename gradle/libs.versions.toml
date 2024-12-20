@@ -10,19 +10,19 @@ spring-boot-gradle-plugin = '3.4.1'
 assetpipeline = { module = 'com.bertramlabs.plugins:asset-pipeline-grails' }
 caffeine = { module = 'com.github.ben-manes.caffeine:caffeine' }
 grails-bom = { module = 'org.grails:grails-bom', version.ref = 'grails' }
-grails-bootstrap = { module = 'org.grails:grails-bootstrap', version.ref = 'grails' }
-grails-core = { module = 'org.grails:grails-core', version.ref = 'grails' }
+grails-bootstrap = { module = 'org.grails:grails-bootstrap' }
+grails-core = { module = 'org.grails:grails-core' }
 grails-datastore-core = { module = 'org.grails:grails-datastore-core' }
 grails-datastore-gorm-hibernate5 = { module = 'org.grails:grails-datastore-gorm-hibernate5' }
 grails-datastore-gorm-mongodb = { module = 'org.grails:grails-datastore-gorm-mongodb' }
 grails-datastore-gorm-support = { module = 'org.grails:grails-datastore-gorm-support' }
-grails-encoder = { module = 'org.grails:grails-encoder', version.ref = 'grails' }
+grails-encoder = { module = 'org.grails:grails-encoder' }
 grails-gradle-plugin = { module = 'org.grails:grails-gradle-plugin', version.ref = 'grails-gradle-plugin' }
-grails-mimetypes = { module = 'org.grails:grails-plugin-mimetypes', version.ref = 'grails' }
-grails-rest = { module = 'org.grails:grails-plugin-rest', version.ref = 'grails' }
+grails-mimetypes = { module = 'org.grails:grails-plugin-mimetypes' }
+grails-rest = { module = 'org.grails:grails-plugin-rest' }
 grails-testing-support-core = { module = 'org.grails:grails-testing-support' }
 grails-testing-support-gorm = { module = 'org.grails:grails-gorm-testing-support' }
-grails-web-urlmappings = { module = 'org.grails:grails-web-url-mappings', version.ref = 'grails' }
+grails-web-urlmappings = { module = 'org.grails:grails-web-url-mappings' }
 groovy-core = { module = 'org.apache.groovy:groovy' }
 groovy-json = { module = 'org.apache.groovy:groovy-json' }
 groovy-templates = { module = 'org.apache.groovy:groovy-templates' }
