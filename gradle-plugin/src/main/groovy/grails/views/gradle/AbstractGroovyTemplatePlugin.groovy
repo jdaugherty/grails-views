@@ -1,6 +1,5 @@
 package grails.views.gradle
 
-import grails.util.GrailsNameUtils
 import groovy.transform.CompileDynamic
 import groovy.transform.CompileStatic
 import org.apache.tools.ant.taskdefs.condition.Os
@@ -15,8 +14,6 @@ import org.gradle.api.tasks.bundling.Jar
 import org.grails.gradle.plugin.core.GrailsExtension
 import org.grails.gradle.plugin.core.IntegrationTestGradlePlugin
 import org.grails.gradle.plugin.util.SourceSets
-import org.springframework.boot.gradle.plugin.ResolveMainClassName
-import org.springframework.boot.gradle.plugin.SpringBootPlugin
 
 /**
  * Abstract implementation of a plugin that compiles views
@@ -75,14 +72,14 @@ class AbstractGroovyTemplatePlugin implements Plugin<Project> {
         templateCompileTask.packageName.set(project.name)
         templateCompileTask.setSource(project.file("${project.projectDir}/$pathToSource"))
         templateCompileTask.dependsOn(tasks.named('classes').get())
-        project.plugins.withType(SpringBootPlugin).configureEach {plugin ->
+        project.plugins.withId('org.springframework.boot') {
             tasks.withType(Jar).configureEach { Task task ->
                 if (task.name in ['jar', 'bootJar', 'war', 'bootWar']) {
                     task.dependsOn(templateCompileTask)
                 }
             }
-            tasks.withType(ResolveMainClassName).configureEach {
-                it.dependsOn(templateCompileTask)
+            tasks.named('resolveMainClassName').configure { Task task ->
+                task.dependsOn(templateCompileTask)
             }
         }
         project.plugins.withType(IntegrationTestGradlePlugin).configureEach {
