@@ -72,23 +72,19 @@ class AbstractGroovyTemplatePlugin implements Plugin<Project> {
         templateCompileTask.packageName.set(project.name)
         templateCompileTask.setSource(project.file("${project.projectDir}/$pathToSource"))
         templateCompileTask.dependsOn(tasks.named('classes').get())
-        project.plugins.withId('org.springframework.boot') {
-            tasks.withType(Jar).configureEach { Task task ->
-                if (task.name in ['jar', 'bootJar', 'war', 'bootWar']) {
-                    task.dependsOn(templateCompileTask)
-                }
-            }
-            tasks.named('resolveMainClassName').configure { Task task ->
+        tasks.withType(Jar).configureEach { Task task ->
+            if (task.name in ['jar', 'bootJar', 'war', 'bootWar']) {
                 task.dependsOn(templateCompileTask)
             }
         }
-        project.plugins.withId('org.grails.gradle.plugin.core.IntegrationTestGradlePlugin') {
-            tasks.named('compileIntegrationTestGroovy') { Task task ->
-                task.dependsOn(templateCompileTask)
-            }
-            tasks.named('integrationTest') { Task task ->
-                task.dependsOn(templateCompileTask)
-            }
+        tasks.named('resolveMainClassName').configure { Task task ->
+            task.dependsOn(templateCompileTask)
+        }
+        tasks.named('compileIntegrationTestGroovy').configure { Task task ->
+            task.dependsOn(templateCompileTask)
+        }
+        tasks.named('integrationTest').configure { Task task ->
+            task.dependsOn(templateCompileTask)
         }
     }
 
