@@ -106,4 +106,15 @@ tasks.withType(InitializeNexusStagingRepository).configureEach {
     shouldRunAfter = tasks.withType(Sign)
 }
 
-apply from: rootProject.layout.projectDirectory.file('gradle/dependency-updates.gradle')
+subprojects {
+    apply plugin: 'groovy'
+
+    dependencies {
+        implementation platform(libs.grails.bom), {
+            exclude group: 'org.grails.plugins', module: 'views-gradle'
+            exclude group: 'org.grails.plugins', module: 'views-json'
+            exclude group: 'org.grails', module: 'views-core'
+            exclude group: 'org.grails', module: 'views-json-testing-support'
+        }
+    }
+}

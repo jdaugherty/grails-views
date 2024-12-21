@@ -26,7 +26,4 @@ dependencies {
     runtimeOnly buildsrcLibs.nexus.publish.gradle.plugin
     runtimeOnly buildsrcLibs.grails.gradle.plugin
     runtimeOnly buildsrcLibs.grails.views.gradle.plugin
-    runtimeOnly buildsrcLibs.groovydoc.gradle.plugin
 }
-
-apply from: rootProject.layout.projectDirectory.file('../gradle/dependency-updates.gradle')
