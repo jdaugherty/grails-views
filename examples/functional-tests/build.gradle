@@ -27,7 +27,6 @@ dependencies {
 
     implementation 'org.grails.plugins:gsp'
     implementation 'org.grails.plugins:hibernate5'
-    implementation libs.grails.datastore.gorm.mongodb // Only used for access to grails.mongodb.geo.Point class
 
     implementation 'org.springframework.boot:spring-boot-autoconfigure'
     implementation 'org.springframework.boot:spring-boot-starter-logging'
@@ -35,7 +34,6 @@ dependencies {
 
     compileOnly libs.jakarta.servlet.api // Provided by Tomcat
 
-    runtimeOnly project(':views-json-templates')
     runtimeOnly 'com.h2database:h2'
     runtimeOnly 'org.apache.tomcat:tomcat-jdbc'
     runtimeOnly libs.assetpipeline

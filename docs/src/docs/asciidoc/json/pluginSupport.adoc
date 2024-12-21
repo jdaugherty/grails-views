@@ -52,8 +52,6 @@ Once this is in place any applications that includes this library will have acce
 
 For example if you want to render all instances of type `foo.bar.Birthday` create a template called `src/main/gson/foo/bar/_birthday.gson` then compile the template and place the JAR on the classpath of your application.
 
-NOTE: See the https://github.com/grails/grails-views/tree/master/json-templates/src/templates/grails/mongodb/geo[GeoJSON templates] for MongoDB for example of how it provides global templates for Mongo specific classes.
-
 == Customizing the Compile Task
 
 Unless otherwise configured, the project name of the plugin (the gradle `project.name`) is used as the `packageName` when compiling JSON views.

@@ -23,6 +23,6 @@ class ObjectTemplateSpec extends HttpClientSpec {
 
         then:"The correct response is returned"
         rsp.status() == HttpStatus.OK
-        rsp.body() == '{"location":{"type":"Point","coordinates":[10.0,10.0]},"name":"London"}'
+        rsp.body() == '{"location":"UK","name":"London"}'
     }
 }

@@ -46,7 +46,7 @@ dependencyResolutionManagement {
     }
 }
 
-['core', 'json', 'docs', 'json-templates', 'json-testing-support', 'markup'].each {dirName ->
+['core', 'json', 'docs', 'json-testing-support', 'markup'].each {dirName ->
     include("views-$dirName")
     project(":views-$dirName").projectDir = file(dirName)
 }
