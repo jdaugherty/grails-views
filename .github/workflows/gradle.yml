@@ -20,7 +20,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           java-version: 17
-          distribution: temurin
+          distribution: liberica
       - name: "🐘 Setup Gradle"
         uses: gradle/actions/setup-gradle@v4
         with:
@@ -29,6 +29,7 @@ jobs:
         env:
           DEVELOCITY_BUILD_CACHE_NODE_USER: ${{ secrets.GRADLE_ENTERPRISE_BUILD_CACHE_NODE_USER }}
           DEVELOCITY_BUILD_CACHE_NODE_KEY: ${{ secrets.GRADLE_ENTERPRISE_BUILD_CACHE_NODE_KEY }}
+          GITHUB_MAVEN_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
         run: >
           ./gradlew
           check
@@ -42,7 +43,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           java-version: 17
-          distribution: temurin
+          distribution: liberica
       - name: "🐘 Setup Gradle"
         uses: gradle/actions/setup-gradle@v4
         with:
@@ -51,6 +52,7 @@ jobs:
         env:
           DEVELOCITY_BUILD_CACHE_NODE_USER: ${{ secrets.GRADLE_ENTERPRISE_BUILD_CACHE_NODE_USER }}
           DEVELOCITY_BUILD_CACHE_NODE_KEY: ${{ secrets.GRADLE_ENTERPRISE_BUILD_CACHE_NODE_KEY }}
+          GITHUB_MAVEN_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
         run: >
           ./gradlew
           build
@@ -61,6 +63,7 @@ jobs:
           DEVELOCITY_BUILD_CACHE_NODE_KEY: ${{ secrets.GRADLE_ENTERPRISE_BUILD_CACHE_NODE_KEY }}
           ORG_GRADLE_PROJECT_artifactoryUsername: ${{ secrets.ARTIFACTORY_USERNAME }}
           ORG_GRADLE_PROJECT_artifactoryPassword: ${{ secrets.ARTIFACTORY_PASSWORD }}
+          GITHUB_MAVEN_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
         run: >
           ./gradlew
           -Dorg.gradle.internal.publish.checksums.insecure=true
@@ -70,12 +73,13 @@ jobs:
         env:
           DEVELOCITY_BUILD_CACHE_NODE_USER: ${{ secrets.GRADLE_ENTERPRISE_BUILD_CACHE_NODE_USER }}
           DEVELOCITY_BUILD_CACHE_NODE_KEY: ${{ secrets.GRADLE_ENTERPRISE_BUILD_CACHE_NODE_KEY }}
+          GITHUB_MAVEN_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
         run: >
           ./gradlew
           views-docs:docs
       - name: "📤 Publish Snapshot Documentation to Github Pages"
         if: success()
-        uses: micronaut-projects/github-pages-deploy-action@grails
+        uses: grails/github-pages-deploy-action@grails
         env:
           BRANCH: gh-pages
           COMMIT_EMAIL: ${{ env.GIT_USER_EMAIL }}
