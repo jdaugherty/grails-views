@@ -6,14 +6,7 @@ repositories {
     mavenCentral()
     maven { url = 'https://repo.grails.org/grails/core' }
 
-    def gradleGrailsVersion = project.rootProject
-            .extensions
-            .getByType(VersionCatalogsExtension.class)
-            .named("buildsrcLibs")
-            .findVersion("grails-gradle-plugin")
-            .get()
-            .displayName
-    if (System.getenv("GITHUB_MAVEN_PASSWORD") && !gradleGrailsVersion.endsWith('-SNAPSHOT')) {
+    if (System.getenv("GITHUB_MAVEN_PASSWORD")) {
         System.out.println("Adding Grails Core Repo")
         maven {
             url = 'https://maven.pkg.github.com/grails/grails-core'

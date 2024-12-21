@@ -14,7 +14,6 @@ grails-bootstrap = { module = 'org.grails:grails-bootstrap' }
 grails-core = { module = 'org.grails:grails-core' }
 grails-datastore-core = { module = 'org.grails:grails-datastore-core' }
 grails-datastore-gorm-hibernate5 = { module = 'org.grails:grails-datastore-gorm-hibernate5' }
-grails-datastore-gorm-mongodb = { module = 'org.grails:grails-datastore-gorm-mongodb' }
 grails-datastore-gorm-support = { module = 'org.grails:grails-datastore-gorm-support' }
 grails-encoder = { module = 'org.grails:grails-encoder' }
 grails-gradle-plugin = { module = 'org.grails:grails-gradle-plugin', version.ref = 'grails-gradle-plugin' }
@@ -32,7 +31,6 @@ jakarta-servlet-api = { module = 'jakarta.servlet:jakarta.servlet-api' }
 jakarta-validation-api = { module = 'jakarta.validation:jakarta.validation-api' }
 micronaut-jackson-databind = { module = 'io.micronaut:micronaut-jackson-databind', version.ref = 'micronaut' }
 micronaut-http-client = { module = 'io.micronaut:micronaut-http-client', version.ref = 'micronaut' }
-mongodb-bson = { module = 'org.mongodb:bson' }
 slf4j-api = { module = 'org.slf4j:slf4j-api' }
 slf4j-nop = { module = 'org.slf4j:slf4j-nop' }
 spock-core = { module = 'org.spockframework:spock-core' }
