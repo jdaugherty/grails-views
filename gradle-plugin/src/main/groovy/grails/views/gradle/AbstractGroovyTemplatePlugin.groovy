@@ -1,5 +1,6 @@
 package grails.views.gradle
 
+import grails.views.gradle.util.GrailsNameUtils
 import groovy.transform.CompileDynamic
 import groovy.transform.CompileStatic
 import org.apache.tools.ant.taskdefs.condition.Os

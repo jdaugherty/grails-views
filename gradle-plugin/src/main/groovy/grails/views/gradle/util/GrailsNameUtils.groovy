@@ -1,4 +1,4 @@
-package grails.views.gradle
+package grails.views.gradle.util
 
 import groovy.transform.CompileStatic
 
