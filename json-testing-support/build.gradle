@@ -10,14 +10,24 @@ ext.set('projectDesc', 'JSON Views Testing Support')
 
 dependencies {
 
-    api project(':views-json') // Used in public API
+    api project(':views-json'), { // Used in public API
+        exclude group: 'org.grails', module: 'grails-bom'
+    }
     api libs.spring.web // Used in public API
-    api libs.grails.datastore.core // Used in public API
+    api libs.grails.datastore.core, { // Used in public API
+        exclude group: 'org.grails', module: 'grails-bom'
+    }
     api libs.spock.core // Used in public API
 
-    implementation libs.grails.core
-    implementation libs.grails.testing.support.core
-    implementation libs.grails.web.urlmappings
+    implementation libs.grails.core, {
+        exclude group: 'org.grails', module: 'grails-bom'
+    }
+    implementation libs.grails.testing.support.core, {
+        exclude group: 'org.grails', module: 'grails-bom'
+    }
+    implementation libs.grails.web.urlmappings, {
+        exclude group: 'org.grails', module: 'grails-bom'
+    }
     implementation libs.groovy.core
     implementation libs.groovy.json
     implementation libs.groovy.templates

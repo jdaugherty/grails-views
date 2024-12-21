@@ -10,7 +10,6 @@ ext.set('projectDesc', 'Grails Views Core')
 
 dependencies {
 
-    api platform(libs.grails.bom)
     api libs.caffeine // Used in public API
     api libs.grails.datastore.core // MappingContext is used in public API
     api libs.grails.mimetypes // MimeUtility is used in public API
