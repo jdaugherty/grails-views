@@ -13,7 +13,6 @@ dependencies {
     // the gradle api is provided by java-gradle-plugin
 
     implementation platform(libs.grails.bom)
-    implementation libs.grails.gradle.plugin
     implementation libs.jakarta.annotation.api
 
     compileOnly libs.groovy.core // @CompileStatic

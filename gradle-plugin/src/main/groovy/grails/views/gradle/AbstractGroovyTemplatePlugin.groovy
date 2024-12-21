@@ -1,6 +1,7 @@
 package grails.views.gradle
 
 import grails.views.gradle.util.GrailsNameUtils
+import grails.views.gradle.util.SourceSets
 import groovy.transform.CompileDynamic
 import groovy.transform.CompileStatic
 import org.apache.tools.ant.taskdefs.condition.Os
@@ -12,9 +13,6 @@ import org.gradle.api.file.FileCollection
 import org.gradle.api.tasks.SourceSetOutput
 import org.gradle.api.tasks.TaskContainer
 import org.gradle.api.tasks.bundling.Jar
-import org.grails.gradle.plugin.core.GrailsExtension
-import org.grails.gradle.plugin.core.IntegrationTestGradlePlugin
-import org.grails.gradle.plugin.util.SourceSets
 
 /**
  * Abstract implementation of a plugin that compiles views
@@ -42,6 +40,7 @@ class AbstractGroovyTemplatePlugin implements Plugin<Project> {
     }
 
     @Override
+    @CompileDynamic
     void apply(Project project) {
         TaskContainer tasks = project.tasks
         String upperCaseName = GrailsNameUtils.getClassName(fileExtension)
@@ -54,8 +53,8 @@ class AbstractGroovyTemplatePlugin implements Plugin<Project> {
         File destDir = new File(project.layout.buildDirectory.get().asFile, "${templateCompileTask.fileExtension.get()}-classes/main")
         output?.dir(destDir)
         project.afterEvaluate {
-            GrailsExtension grailsExt = project.extensions.getByType(GrailsExtension)
-            if (grailsExt.pathingJar && Os.isFamily(Os.FAMILY_WINDOWS)) {
+            def grailsExt = project.extensions.findByName('grails')
+            if (grailsExt?.pathingJar && Os.isFamily(Os.FAMILY_WINDOWS)) {
                 Jar pathingJar = (Jar) tasks.named('pathingJar').get()
                 ConfigurableFileCollection allClasspath = project.files(
                         "${project.layout.buildDirectory.get().asFile}/classes/groovy/main",
@@ -83,7 +82,7 @@ class AbstractGroovyTemplatePlugin implements Plugin<Project> {
                 task.dependsOn(templateCompileTask)
             }
         }
-        project.plugins.withType(IntegrationTestGradlePlugin).configureEach {
+        project.plugins.withId('org.grails.gradle.plugin.core.IntegrationTestGradlePlugin') {
             tasks.named('compileIntegrationTestGroovy') { Task task ->
                 task.dependsOn(templateCompileTask)
             }
