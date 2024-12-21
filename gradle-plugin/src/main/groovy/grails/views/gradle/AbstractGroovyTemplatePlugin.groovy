@@ -1,6 +1,7 @@
 package grails.views.gradle
 
-import grails.util.GrailsNameUtils
+import grails.views.gradle.util.GrailsNameUtils
+import grails.views.gradle.util.SourceSets
 import groovy.transform.CompileDynamic
 import groovy.transform.CompileStatic
 import org.apache.tools.ant.taskdefs.condition.Os
@@ -12,11 +13,6 @@ import org.gradle.api.file.FileCollection
 import org.gradle.api.tasks.SourceSetOutput
 import org.gradle.api.tasks.TaskContainer
 import org.gradle.api.tasks.bundling.Jar
-import org.grails.gradle.plugin.core.GrailsExtension
-import org.grails.gradle.plugin.core.IntegrationTestGradlePlugin
-import org.grails.gradle.plugin.util.SourceSets
-import org.springframework.boot.gradle.plugin.ResolveMainClassName
-import org.springframework.boot.gradle.plugin.SpringBootPlugin
 
 /**
  * Abstract implementation of a plugin that compiles views
@@ -44,6 +40,7 @@ class AbstractGroovyTemplatePlugin implements Plugin<Project> {
     }
 
     @Override
+    @CompileDynamic
     void apply(Project project) {
         TaskContainer tasks = project.tasks
         String upperCaseName = GrailsNameUtils.getClassName(fileExtension)
@@ -56,8 +53,8 @@ class AbstractGroovyTemplatePlugin implements Plugin<Project> {
         File destDir = new File(project.layout.buildDirectory.get().asFile, "${templateCompileTask.fileExtension.get()}-classes/main")
         output?.dir(destDir)
         project.afterEvaluate {
-            GrailsExtension grailsExt = project.extensions.getByType(GrailsExtension)
-            if (grailsExt.pathingJar && Os.isFamily(Os.FAMILY_WINDOWS)) {
+            def grailsExt = project.extensions.findByName('grails')
+            if (grailsExt?.pathingJar && Os.isFamily(Os.FAMILY_WINDOWS)) {
                 Jar pathingJar = (Jar) tasks.named('pathingJar').get()
                 ConfigurableFileCollection allClasspath = project.files(
                         "${project.layout.buildDirectory.get().asFile}/classes/groovy/main",
@@ -75,23 +72,19 @@ class AbstractGroovyTemplatePlugin implements Plugin<Project> {
         templateCompileTask.packageName.set(project.name)
         templateCompileTask.setSource(project.file("${project.projectDir}/$pathToSource"))
         templateCompileTask.dependsOn(tasks.named('classes').get())
-        project.plugins.withType(SpringBootPlugin).configureEach {plugin ->
-            tasks.withType(Jar).configureEach { Task task ->
-                if (task.name in ['jar', 'bootJar', 'war', 'bootWar']) {
-                    task.dependsOn(templateCompileTask)
-                }
-            }
-            tasks.withType(ResolveMainClassName).configureEach {
-                it.dependsOn(templateCompileTask)
+        tasks.withType(Jar).configureEach { Task task ->
+            if (task.name in ['jar', 'bootJar', 'war', 'bootWar']) {
+                task.dependsOn(templateCompileTask)
             }
         }
-        project.plugins.withType(IntegrationTestGradlePlugin).configureEach {
-            tasks.named('compileIntegrationTestGroovy') { Task task ->
-                task.dependsOn(templateCompileTask)
-            }
-            tasks.named('integrationTest') { Task task ->
-                task.dependsOn(templateCompileTask)
-            }
+        tasks.named('resolveMainClassName').configure { Task task ->
+            task.dependsOn(templateCompileTask)
+        }
+        tasks.named('compileIntegrationTestGroovy').configure { Task task ->
+            task.dependsOn(templateCompileTask)
+        }
+        tasks.named('integrationTest').configure { Task task ->
+            task.dependsOn(templateCompileTask)
         }
     }
 
